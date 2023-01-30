@@ -5,12 +5,10 @@ schema {
 
 # eslint-disable-next-line
 type Query {
-  # eslint-disable-next-line
   _service: _Service
 }
 
 # eslint-disable-next-line
 type _Service {
-    # eslint-disable-next-line
     sdl: String!
 }
