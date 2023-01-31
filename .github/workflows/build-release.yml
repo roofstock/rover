@@ -1,16 +1,14 @@
-name: build-release
+name: build
 
 on:
   push:
     branches:
       - graphql-dotnet
-    paths:
-      - '.github/workflows/build-release.yml'
+
   pull_request:
     branches:
       - graphql-dotnet
-    paths:
-      - '.github/workflows/build-release.yml'
+
 #  schedule:
 #    # everyday at 5 AM PT (1 PM UTC)
 #    - cron: "* 13 * * *"
