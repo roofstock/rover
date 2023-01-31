@@ -9,6 +9,7 @@ on:
     branches:
       - graphql-dotnet
 
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -23,4 +24,5 @@ jobs:
           override: true
       - name: Build
         uses: actions-rs/cargo@v1
-        command: build
+        with:
+          command: build
