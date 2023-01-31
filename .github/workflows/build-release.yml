@@ -9,15 +9,9 @@ on:
     branches:
       - graphql-dotnet
 
-#  schedule:
-#    # everyday at 5 AM PT (1 PM UTC)
-#    - cron: "* 13 * * *"
-  workflow_dispatch:
-
 jobs:
-  build-release:
+  build:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout sources
         uses: actions/checkout@v3
@@ -28,11 +22,6 @@ jobs:
           profile: minimal
           toolchain: stable
           override: true
-
-      -name: Run cargo check
-       uses: action-rs/cargo@v1
-       with:
-         command: check
 
       -name: Build
        uses: actions-rs/cargo@v1
