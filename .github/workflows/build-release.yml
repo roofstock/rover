@@ -1,0 +1,34 @@
+name: build
+
+on:
+  push:
+    branches:
+      - graphql-dotnet
+
+  pull_request:
+    branches:
+      - graphql-dotnet
+
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v3
+      - name: Install stable toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: stable
+          override: true
+      - name: Build
+        uses: actions-rs/cargo@v1
+        with:
+          command: build
+          args: --release
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: rover-linux
+          path: /home/runner/work/rover/rover/target/release/rover
