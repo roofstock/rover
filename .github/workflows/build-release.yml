@@ -26,3 +26,8 @@ jobs:
         uses: actions-rs/cargo@v1
         with:
           command: build
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: rover-linux
+          path: target/release/rover
