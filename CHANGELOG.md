@@ -4,7 +4,7 @@ All notable changes to Rover will be documented in this file.
 
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-<!-- # [x.x.x] (unreleased) - 2022-mm-dd
+<!-- # [x.x.x] (unreleased) - 2023-mm-dd
 
 > Important: x potentially breaking changes below, indicated by **❗ BREAKING ❗**
 
@@ -15,6 +15,76 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ## 🛠 Maintenance
 
 ## 📚 Documentation -->
+
+
+# [0.13.0] - 2023-03-10
+
+## 🚀 Features
+
+- **Dynamic templates - @dbanty, #1388**
+
+  Rover now fetches templates from a GraphQL API. New templates can be contributed to [the templates repo](https://github.com/apollographql/templates) and will not require a new release of Rover to be used. To see the latest templates, run `rover template list`.
+
+## 🐛 Fixes
+
+- **Fixes behavior of `--router-config` in `rover dev` - @EverlastingBugstopper, #1536 fixes #1535**
+
+  Older versions of Rover did not respect the `supergraph` section of the `--router-config` file. This has been fixed in v0.13.0.
+
+# [0.12.2] - 2023-02-23
+
+## 🚀 Features
+
+- **Warn when `federation_version` is not pinned - @EverlastingBugstopper, #1524**
+
+  As of this release, we no longer recommend auto-updates for the `rover supergraph compose` command because of the coordination path that is required to roll out new versions of Federation. If you do not specify an exact `federation_version`, a warning will be printed. In a future version of Rover we will entirely deprecate auto-updating, so please migrate now. This change includes some changes to our documentation as well, check out [the docs](https://www.apollographql.com/docs/rover/commands/supergraphs/#setting-a-composition-version) for more information.
+
+## 🐛 Fixes
+
+- **Fixes composition error reporting in `rover subgraph check` - @EverlastingBugstopper, #1525**
+
+  In Rover v0.12.0 and v0.12.1, running a `rover subgraph check` with an invalid schema failed to report the composition errors, this behavior is fixed in v0.12.2.
+
+## 🛠 Maintenance
+
+- **Updates internal node dependencies - @EverlastingBugstoppe**
+
+  `node` v18.14.0 -> v18.14.1
+  `npm` v9.4.2 -> v9.5.0
+
+# [0.12.1] - 2023-02-17
+
+## 🐛 Fixes
+
+- **Updates the output of a skipped operation check to match regular checks - @EverlastingBugstopper, #1519**
+
+  A bit of polish to the output of the feature just released in 0.12.0.
+
+# [0.12.0] - 2023-02-17
+
+## 🚀 Features
+
+- **Allow `rover subgraph check` to execute without operation check results - @jsegaran, #1490**
+
+  Apollo Studio now allows you to disable operation checks for a graph variant. Older versions of Rover will fail to parse the result of a check without a result for an operation check and return an error. Running the same check in versions of Rover after 0.12.0 will succeed when operation checks are disabled.
+
+## 🛠 Maintenance
+
+- **Fix up xtask test runner - @EverlastingBugstopper, #1505**
+
+  `cargo xtask test` detects failed tests and reruns them with some arguments. Unfortunately the code to insert `--target` arguments was in the wrong order and resulted in confusing internal error messages on failed tests, this is now fixed.
+
+## 📚 Documentation
+
+- **Adds Gitlab CI/CD Instructions - @ugurcemozturk, #1513 fixes #429**
+
+# [0.11.1] - 2023-02-08
+
+## 🐛 Fixes
+
+- **Updates router config in `rover dev` to match newer versions - @dbanty, #1500**
+
+  The default configuration for the router in `rover dev` disables the health check. The router configuration recently renamed this check from `health-check` to `health_check`, which is now reflected in `rover dev`'s default router configuration.
 
 # [0.11.0] - 2023-01-24
 

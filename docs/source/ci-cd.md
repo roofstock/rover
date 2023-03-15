@@ -10,6 +10,7 @@ Rover's installation is similar to many other CLI tools, but the recommended met
 * [GitHub Actions](#github-actions)
 * [Bitbucket Pipelines](#bitbucket-pipelines)
 * [Jenkins](#jenkins)
+* [Gitlab CI/CD](#gitlab-cicd)
 
 
 > If you're using Rover with a CI/CD provider not listed here, we'd love for you to share the steps by opening an [issue](https://github.com/apollographql/rover/issues/new/choose) or [pull request](https://github.com/apollographql/rover/compare)!
@@ -45,7 +46,7 @@ jobs:
           name: Install
           command: |
             # download and install Rover
-            curl -sSL https://rover.apollo.dev/nix/v0.11.0 | sh
+            curl -sSL https://rover.apollo.dev/nix/v0.13.0 | sh
 
             # This allows the PATH changes to persist to the next `run` step
             echo 'export PATH=$HOME/.rover/bin:$PATH' >> $BASH_ENV
@@ -120,7 +121,7 @@ jobs:
 
       - name: Install Rover
         run: |
-          curl -sSL https://rover.apollo.dev/nix/v0.11.0 | sh
+          curl -sSL https://rover.apollo.dev/nix/v0.13.0 | sh
 
           # Add Rover to the $GITHUB_PATH so it can be used in another step
           # https://docs.github.com/en/actions/reference/workflow-commands-for-github-actions#adding-a-system-path
@@ -206,10 +207,10 @@ Normally when installing, Rover adds the path of its executable to your `$PATH`.
 
 To avoid this issue, do one of the following:
 - Use the script, but reference `rover` by its full path (`$HOME/.rover/bin/rover`)
-- Download the latest release via cURL and extract the binary like so (this downloads Rover `0.11.0` for Linux x86 architectures):
+- Download the latest release via cURL and extract the binary like so (this downloads Rover `0.12.2` for Linux x86 architectures):
 
     ```
-    curl -L https://github.com/apollographql/rover/releases/download/v0.11.0/rover-v0.11.0-x86_64-unknown-linux-gnu.tar.gz | tar --strip-components=1 -zxv
+    curl -L https://github.com/apollographql/rover/releases/download/v0.13.0/rover-v0.13.0-x86_64-unknown-linux-gnu.tar.gz | tar --strip-components=1 -zxv
     ```
 
 #### Permission issues
@@ -277,6 +278,26 @@ pipeline {
     APOLLO_GRAPH_REF = 'AolloJenkins@dev'
   }
 }
+```
+## Gitlab
+Since there isn't any official Docker image for Rover, we can use the `debian:stable-slim` as a base image. All you need to do is fetch the source via cURL, add the executable to the PATH variable, then publish your subgraphs. 
+
+```
+push_subgraphs:
+stages:
+  - publish_subgraphs
+  
+publish_subgraphs:
+  stage: publish_subgraphs
+  image: debian:stable-slim
+  retry: 1 # to retry if any connection issue or such happens
+  before_script:
+    - apk --no-cache add curl 
+  script:
+    - curl -sSL https://rover.apollo.dev/nix/latest | sh # Install the latest version of Rover
+    - export PATH="$HOME/.rover/bin:$PATH" # Manually add it to the ruuner PATH
+    - export APOLLO_KEY=$APOLLO_FEDERATION_KEY
+    - rover subgraph publish $APOLLO_GRAPH_REF --name $APOLLO_SUBGRAPH_NAME --schema $SCHEMA_PATH
 ```
 
 ## Using With `npm`/`npx`

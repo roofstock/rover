@@ -11,7 +11,7 @@ license-file = "./LICENSE"
 name = "rover"
 readme = "README.md"
 repository = "https://github.com/apollographql/rover/"
-version = "0.11.0"
+version = "0.13.0"
 default-run = "rover"
 
 publish = false
@@ -96,13 +96,13 @@ humantime = "2.1.0"
 httpmock = "0.6"
 hyper = "0.14"
 interprocess = "1"
-indoc = "1"
+indoc = "2"
 lazycell = "1"
 lazy_static = "1.4"
 notify = "4"
 online = "4.0.0"
 opener = "0.5"
-os_info = "3.5"
+os_info = "3.6"
 os_type = "2.6"
 predicates = "2"
 pretty_assertions = "1"
@@ -127,7 +127,7 @@ tar = "0.4"
 termimad = "0.20"
 tempdir = "0.3"
 tempfile = "3.3"
-tokio = "1.24"
+tokio = "1.25"
 tokio-stream = "0.1"
 toml = "0.5"
 tracing = "0.1"
@@ -159,6 +159,7 @@ crossterm = { workspace = true }
 ctrlc = { workspace = true }
 dialoguer = { workspace = true }
 flate2 = { workspace = true }
+graphql_client = { workspace = true }
 heck = { workspace = true }
 houston = { workspace = true }
 interprocess = { workspace = true }

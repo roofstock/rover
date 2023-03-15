@@ -5,11 +5,11 @@ schema {
 
 """An organization in Apollo Studio. Can have multiple members and graphs."""
 type Organization {
+  """Globally unique identifier, which isn't guaranteed stable (can be changed by administrators)."""
+  id: ID!
   auditLogExports: [AuditLogExport!]
   """Graphs belonging to this organization."""
   graphs(includeDeleted: Boolean): [Graph!]!
-  """Globally unique identifier, which isn't guaranteed stable (can be changed by administrators)."""
-  id: ID!
   """Name of the organization, which can change over time and isn't unique."""
   name: String!
   """Graphs belonging to this organization."""
@@ -349,7 +349,10 @@ input CheckFilterInput {
   variants: [String!]
 }
 
-"""Options for filtering CheckWorkflows by status"""
+"""
+Options for filtering CheckWorkflows by status
+This should always match CheckWorkflowStatus
+"""
 enum CheckFilterInputStatusOption {
   FAILED
   PENDING
@@ -1535,6 +1538,7 @@ type Router {
   secrets: [Secret!]!
 }
 
+"""Current status of Cloud Routers"""
 enum RouterStatus {
   CREATING
   UPDATING
@@ -1791,6 +1795,7 @@ type SourceLocation {
   line: Int!
 }
 
+"""Possible status of a Cloud Router version"""
 enum Status {
   STABLE
   NEXT
