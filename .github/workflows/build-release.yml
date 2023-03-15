@@ -31,4 +31,4 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: rover-linux
-          path: /home/runner/work/rover/rover
+          path: /home/runner/work/rover/rover/target/release/rover
